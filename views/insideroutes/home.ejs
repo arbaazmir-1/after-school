@@ -1,0 +1,169 @@
+<% layout('boilerplate/boilerplatein') %>
+
+
+  <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+  <div class="main-cont">
+
+    <div class="content-cont">
+
+      <div class="filter-btn-cont">
+
+        <a href="/home" class="filterBtn filterBtn-all"><i class="fas fa-globe"></i>&nbsp;&nbsp;&nbsp;All</a>
+        <a href="/home?tag=announcement" class="filterBtn filterBtn-admin"><i class="fas fa-bullhorn"></i> Announcement</a>
+        <a href="/home?tag=help" class="filterBtn filterBtn-help"><i class="fas fa-hand-holding-medical"></i> Help</a>
+        <a href="/home?tag=funny" class="filterBtn filterBtn-funny"><i class="fas fa-fire"></i> Funny</a>
+        <a href="/home?tag=newstudent" class="filterBtn filterBtn-newStud"><i class="fas fa-plus"></i> New Student</a>
+      </div>
+      
+        <div class="post-cont">
+          <% for(let i=0;i<posts.length;i++){ %>
+            
+            
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title"><a href="/posts/<%=posts[i]._id%>" style="text-decoration: none;">
+                        <%=posts[i].title%> 
+                      </a> </h5>
+                      <% if(posts[i].author.isAdmin){ %> 
+                        <p>Author: Admin </p>
+                        <% }else{ %> 
+                      <p>Author:<%=posts[i].author.name%> </p>
+                      <% } %> 
+                      
+                    <p class="card-text">
+                      <%=posts[i].content.slice(0,185)%>
+                    </p>
+                    
+                    <% for(let j=posts[i].tag.length-1;j>=0;j--){ %>
+                      <% if(posts[i].tag[j]==="funny" ) {%>
+                        <a href="/home?tag=funny" class="filterBtn filterBtn-funny"><i class="fas fa-fire"></i>
+                          Funny</a>
+                        <% } else if(posts[i].tag[j]==="help" ){ %>
+                          <a href="/home?tag=help" class="filterBtn filterBtn-help"><i
+                              class="fas fa-hand-holding-medical"></i> Help</a>
+
+                          <% } else if(posts[i].tag[j]==="newstudent" ){ %>
+                            <a href="/home?tag=newstudent" class="filterBtn filterBtn-newStud"><i
+                                class="fas fa-plus"></i> New
+                              Student</a>
+                            <% }  else if(posts[i].tag[j]==="announcement"){ %>
+                      <a href="/home?tag=announcement" class="filterBtn filterBtn-admin"><i class="fas fa-bullhorn"></i> Announcement</a>
+                      <% } %> 
+
+
+                              <% } %>
+                              <sub class="m-2">
+                                <%=posts[i].timeDate %>
+                              </sub>
+                              
+                              
+                  </div>
+                  <a href="/posts/<%=posts[i]._id%>">
+                    <img src="<%=posts[i].image%> " class="card-img-bottom " alt="..."></a>
+                </div>
+                
+                  <% } %>
+        </div>
+
+        <!-- pagination for all posts and filtered posts -->
+        <nav aria-label="Page navigation example" class="pagnationHome">
+          <% if(pages>0){ %>
+            <ul class="pagination">
+              <% if(current==1 ){ %>
+                <li class="page-item disabled"><a class="page-link" href="#">First</a></li>
+                <% } else{ %>
+                  <% if(tag===undefined ){ %>
+                    <li class="page-item"><a class="page-link" href="/home/1">First</a></li>
+
+                    <% }else{ %>
+                      <li class="page-item"><a class="page-link" href="/home/1?tag=<%=tag%> ">First</a></li>
+                      <% } %>
+                        <% } %>
+                          <% let i=(Number(current)> 5 ? Number(current) - 4 : 1) %>
+                            <% if (i !==1) { %>
+                              <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+                              <% } %>
+                                <% for (; i <=(Number(current) + 4) && i <=pages; i++) { %>
+                                  <% if (i==current) { %>
+                                    <li class="page-item active"><a class="page-link">
+                                        <%=i%>
+                                      </a></li>
+                                    <% }else{ %>
+                                      <% if(tag===undefined ){ %>
+                                        <li class="page-item"><a class="page-link" href="/home/<%=i%>">
+                                            <%=i%>
+                                          </a></li>
+                                        <% }else{ %>
+                                          <li class="page-item"><a class="page-link"
+                                              href="/home/<%=i  %>?tag=<%=tag  %>  ">
+                                              <%=i%>
+                                            </a></li>
+                                          <% } %>
+                                            <% } %>
+                                              <% if (i==Number(current) + 4 && i < pages) { %>
+                                                <li class=" page-item disabled"><a class="page-link" href="#">...</a>
+                                                </li>
+                                                <% } %>
+                                                  <% } %>
+                                                    <% if (current==pages) { %>
+                                                      <li class="page-item disabled"><a class="page-link">Last</a></li>
+                                                      <% }else{ %>
+                                                        <% if(tag===undefined){ %>
+
+                                                          <li class="page-item "><a class="page-link"
+                                                              href="/home/<%=pages  %> ">Last</a></li>
+                                                          <% }else{ %>
+                                                            <li class="page-item "><a class="page-link"
+                                                                href="/home/<%=pages  %>?tag=<%=tag%> ">Last</a></li>
+                                                            <% } %>
+                                                              <% } %>
+            </ul>
+            <% } %>
+        </nav>
+
+    </div>
+
+
+    <div class="annoucment-about">
+      
+
+      <div class="card mb-3 annoucment-card">
+        <% if(announcement.length<=0){ %>
+          <p class="m-4">No Announcement Found!</p>
+          <% }else{ %>
+        <div class="card-header">
+          <h3>Announcement</h3>
+        </div>
+        <img src="<%=announcement[0].image%>" class="card-img-top" alt="...">
+        <div class="card-body">
+         <a href="/posts/<%=announcement[0]._id%>" style="text-decoration: none;"> <h5 class="card-title"> <%=announcement[0].title %> </h5></a>
+          <p class="card-text"> <%=announcement[0].content %>  </p>
+          <p class="card-text"><small class="text-muted">Posted on 12/01/2022</small></p>
+          <a href="/home?tag=admin" class="filterBtn filterBtn-admin"><i class="fas fa-bullhorn"></i> Announcement</a>
+        </div>
+      </div>
+      <% } %> 
+
+
+      <div class="create-post-section">
+        <div class="create-section">
+          <img src="/assests/image1.png" class="createPostImg" alt="">
+          <a href="/createpost" class="createPostBtns" id="newpostBtn">Create Post</a>
+          <a href="/createpost" class="createPostBtns" id="newPostImg"><i class="fas fa-image"></i></a>
+        </div>
+      </div>
+
+      <div class="aboutus">
+        <div class="aboutusLinksSection">
+          <a href="#" class="aboutus-links">About us</a>
+          <a href="#" class="aboutus-links">Privacy Policy</a>
+          <a href="#" class="aboutus-links">Terms & Conditions</a>
+        </div>
+        <p>All right Reserved | Abdullah Ibn Shahin | i20018647 <br> All the images used are not copyrighted and are
+          owned by their respected owners | The website is not responsible for any user uploaded images |</p>
+      </div>
+
+    </div>
+
+
+  </div>

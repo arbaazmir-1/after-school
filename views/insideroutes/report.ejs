@@ -1,0 +1,51 @@
+<% layout('boilerplate/boilerplatein') %>
+<link rel="stylesheet" href="/css/report.css">
+<h2 style="text-align: center; background-color: white; padding: 10px;">Reported Posts</h2>
+<div class="table-cont-report">
+
+    <table class="table">
+
+        <tr>
+            <th>Post Title</th>
+            <th>Post Author</th>
+            <th>Content</th>
+            <th>No. Of Reports</th>
+            <th>Tags</th>
+            
+        </tr>
+        <% if(posts.length==0){ %> 
+            <p>No reports</p>
+            <% }else{ %> 
+        <% for(let i=0;i<posts.length;i++){ %> 
+            <tr>
+                <td> 
+                    <a class="link-post" href="/posts/<%=posts[i]._id%>"> <%=posts[i].title  %> </a>
+                </td>
+                <td> <%= posts[i].author.name  %> </td>
+                <td><%= posts[i].content%></td>
+                <td><%=posts[i].reports.length%></td>
+                
+                
+               
+                    <% let t=0; %>
+                    <td>
+                    <%for(let j=0;j<posts[i].reports.length;j++) { %> 
+                    <% if(t<4) { t+=1 %>
+                    <span> <%=posts[i].reports[j].tags.join(',')  %></span> <br>  
+                    <% } %> 
+                    <% } %>
+                 </td>
+                 
+               
+                
+            </tr>
+
+            <% } %> 
+            <% } %> 
+
+    </table>
+
+
+
+
+</div>

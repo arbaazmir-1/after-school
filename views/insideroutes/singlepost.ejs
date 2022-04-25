@@ -1,0 +1,297 @@
+<% layout('boilerplate/boilerplatein') %>
+<link rel="stylesheet" href="/css/singlepost.css" />
+  <div class="mainContSinglePost">
+    <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+    <!-- post content -->
+    <div class="postCont">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between">
+          <a href="/home" class="btn btn-primary m-1"><i class="fas fa-arrow-left"></i> Go home</a>
+          <div class="buttonContHeader d-flex flex-row-reverse">
+            <% if(author._id.equals(loggedinUser._id)){ %>
+            <a href="/editpost/<%=post._id%>" class="btn btn-outline-success m-1">Edit Post</a>
+            <% } %> 
+            
+            
+            
+            <% if(author._id.equals(loggedinUser._id) || loggedinUser.isAdmin==true){  %> 
+            <!-- Button trigger modal -->
+            <button type=" button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Delete
+            </button>
+            <% } %> 
+
+            <!-- Modal -->
+            <div class="modal fade  " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog  border border-danger rounded">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Post</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    Are Your Sure You Want To Delete This post?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <form class="d-inline m-1" action="/post/<%=post._id%>?_method=DELETE" method="POST">
+                      <button class="btn btn-danger" ">Delete</button>
+                                  </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              
+              <% if(!post.tag.includes("announcement") && !loggedinUser.isAdmin &&  !author._id.equals(loggedinUser._id)){ %> 
+              <button type=" button" class="btn btn-outline-danger m-1" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal1" data-bs-whatever="@mdo">Report Post</button>
+                <% } %> 
+
+                      <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Report This Post</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <form action="/posts/<%=post._id%>/report" method="POST" class="needs-validation" novalidate>
+
+                                <div class="mb-3">
+                                  <label for="message-text" class="col-form-label">Why are your reporting this
+                                    post?</label>
+                                  <textarea class="form-control" id="message-text" name="report[reason]" required></textarea>
+                                  <div class="d-flex mt-2 justify-content-between" style="width: 60%;" >
+                                    <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" name="report[tags]" value="nsfw" />
+                                    <label class="btn btn-outline-danger" for="btn-check-outlined">NSFW</label><br />
+                                    <input type="checkbox" class="btn-check" id="btn-check-outlined2" autocomplete="off" style="margin-left: 10px"
+                                      name="report[tags]" value="spam" />
+                                    <label class="btn btn-outline-warning" for="btn-check-outlined2">Spam</label><br />
+                                    <input type="checkbox" class="btn-check" id="btn-check-outlined3" autocomplete="off" style="margin-left: 10px"
+                                      name="report[tags]" value="offensive" />
+                                    <label class="btn btn-outline-danger" for="btn-check-outlined3">Offensive</label><br />
+                                  </div>
+                                </div>
+
+                            </div>
+                            <p style="margin: 0px 10px 0px 10px; font-size: 10px; color: red;">*Please remember, falsely
+                              reporting
+                              might lead to you
+                              being ban from
+                              the
+                              Community.</p>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-primary">Send message</button>
+                            </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+
+
+
+
+
+            </div>
+
+          </div>
+          <div class="card-body">
+            <h5 class="card-title d-flex justify-content-between align-items-center"  >
+              <%=post.title %> <sup><%=post.timeDate  %> </sup>
+            </h5>
+            <% if(author.isAdmin){ %> 
+              <p> Author: <a href="/profile/<%=author._id%>" style="text-decoration: none;">
+                  Admin 
+                </a></p>
+                
+              <% }else{ %> 
+            <p> Author:  <a href="/profile/<%=author._id%>" style="text-decoration: none;"><%=author.name %> </a></p>
+            <% } %> 
+            <% if(loggedinUser.isAdmin){ %> 
+              <p>Author Email: <%=author.email  %> </p>
+              <% } %> 
+            <p class="card-text">
+              <%=post.content %>
+            </p>
+            <% for(let j=post.tag.length-1;j>=0;j--){ %>
+              <% if(post.tag[j]==="funny" ) {%>
+                <a href="/home?tag=funny" class="filterBtn filterBtn-funny"><i class="fas fa-fire"></i> Funny</a>
+                <% } else if(post.tag[j]==="help" ){ %>
+                  <a href="/home?tag=help" class="filterBtn filterBtn-help"><i class="fas fa-hand-holding-medical"></i>
+                    Help</a>
+
+                  <% } else if(post.tag[j]==="newstudent" ){ %>
+                    <a href="/home?tag=newstudent" class="filterBtn filterBtn-newStud"><i class="fas fa-plus"></i>
+                      New
+                      Student</a>
+                    <% } else if(post.tag[j]==="announcement"){ %>
+                      <a href="/home?tag=announcement" class="filterBtn filterBtn-admin"><i class="fas fa-bullhorn"></i> Announcement</a>
+                      <a href="#" class="filterBtn filterBtn-admin"><i class="fas fa-user"></i> Admin</a>
+                      <% } %> 
+                      <% } %>
+
+                    
+
+          </div>
+          <img src="<%= post.image%> " class="card-img-bottom postImage border border-dark" alt="...">
+
+         
+        </div>
+        <!-- comment section -->
+        <div class="commentsection">
+
+          <form action="/posts/<%=post._id%>/comments" method="POST" class="formComments">
+            <label for="exampleFormControlTextarea1" class="form-label">Comment on this post</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" name="comment[comment]" rows="3"></textarea>
+            <button class="btn btn-outline-success mt-2">Comment</button>
+            <!-- <a href="javascript:history.back()">Go Back</a> -->
+          </form>
+          <hr>
+          <div class="comments">
+            <p>Please Be Respectful and keep the Community clean</p>
+
+            <% for(let com=0;com<comments.length;com++){ %>
+              <div class="Singlecomment m-2" >
+                
+                <div class="contentComments" style="width: 90%;margin-left: 20px;">
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <% if(comments[com].author.isAdmin){ %> 
+                        
+                          
+                         <a style="text-decoration: none;"  href="/profile/<%=comments[com].author._id%>"> 
+                          <h5>Admin</h5></a>
+
+                          
+                        
+                        <% } else if(comments[com].author._id.toString().includes(loggedinUser._id.toString())) { %> 
+
+                          <h6>You</h6>
+                          <% }else{ %> 
+                         <%   if(comments[com].author._id.toString().includes(author._id.toString())){  %> 
+                          <a style="text-decoration: none;" href="/profile/<%=comments[com].author._id%>">
+                            <h6><%=comments[com].author.name%>    <sup>Author</sup> </h6>
+                            </a>
+                            <% }else{ %> 
+                              <a style="text-decoration: none;" href="/profile/<%=comments[com].author._id%>">
+                                <h6>
+                                  <%=comments[com].author.name%> 
+                                </h6>
+                              </a>
+                              <% } %> 
+                            <% } %> 
+                       
+                        
+                      <p style="font-size: 18px;">
+                        <%=comments[com].comment %> 
+                      </p>
+                      <p style="font-size: 14px;">
+                        <%=comments[com].time %>
+                      </p>
+                    </div>
+                    <% if(comments[com].author._id.equals(loggedinUser._id) || loggedinUser.isAdmin){ %> 
+                    <form class="d-inline m-1" action="/comments/<%=post._id%>/<%=comments[com]._id%>?_method=DELETE" method="POST">
+                      <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+                    </form>
+                    <% } %> 
+                  </div>
+
+                </div>
+
+
+
+
+
+              </div>
+              <% } %>
+
+          </div>
+        </div>
+
+
+
+
+
+
+      </div>
+
+
+      <div class="annoucment-about">
+
+        <div class="card mb-3 annoucment-card">
+          <% if(loggedinUser.isAdmin){ %>
+            <div class="card-header">
+            
+              <h3>Reports in this posts</h3>
+            </div>
+            
+            <div class="card-body">
+              <% for(let i=0;i<reports.length;i++){ %>
+                <p>Reasons: <%=reports[i].reason%>
+                </p>
+                <% for(let j=0;j<reports[i].tags.length;j++){ %>
+                  <button class="btn btn-danger">
+                    <%=reports[i].tags[j]%>
+                  </button>
+                  <% } %>
+                    <% } %>
+            </div>
+            <% }else{ %>
+          <div class="card-header">
+            <% if(announcement.length<=0){ %> 
+              <p>No Announcement Found</p>
+              <% }else{ %> 
+            
+            <h3>Announcement</h3>
+          </div>
+          <img src="<%=announcement[0].image%>" class="card-img-top" alt="...">
+          <div class="card-body">
+            <a href="/posts/<%=announcement[0]._id%>" style="text-decoration: none;">
+              <h5 class="card-title">
+                <%=announcement[0].title %>
+              </h5>
+            </a>
+            <p class="card-text">
+              <%=announcement[0].content %>
+            </p>
+            <p class="card-text"><small class="text-muted">Posted on 12/01/2022</small></p>
+            <a href="/home?tag=admin" class="filterBtn filterBtn-admin"><i class="fas fa-bullhorn"></i>
+              Announcement</a>
+          </div>
+          <% } %> 
+          <% } %> 
+        </div>
+
+
+        <div class="create-post-section">
+          <div class="create-section">
+            <img src="/assests/image1.png" class="createPostImg" alt="">
+            <a href="/createpost" class="createPostBtns" id="newpostBtn">Create Post</a>
+            <a href="/createpost" class="createPostBtns" id="newPostImg"><i class="fas fa-image"></i></a>
+          </div>
+        </div>
+
+        <div class="aboutus">
+          <div class="aboutusLinksSection">
+            <a href="#" class="aboutus-links">About us</a>
+            <a href="#" class="aboutus-links">Privacy Policy</a>
+            <a href="#" class="aboutus-links">Terms & Conditions</a>
+          </div>
+          <p>All right Reserved | Abdullah Ibn Shahin | i20018647 <br> All the images used are not copyrighted and
+            are
+            owned by their respected owners | The website is not responsible for any user uploaded images | </p>
+        </div>
+
+      </div>
+
+    </div>

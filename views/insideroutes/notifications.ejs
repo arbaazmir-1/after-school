@@ -1,0 +1,44 @@
+<% layout('boilerplate/boilerplatein') %>
+<div class="container form-contain">
+    
+    
+        <h2 class="m-4"><i style="font-size: 30px; color: #2F79CC;" class="fas fa-bell"></i> Notifications </h2>
+    
+        <% for(let i=notifications.length -1;i>=0;i--){ %>
+            <% if(notifications.length>0){ %>
+                    </2>
+                    
+    
+                        <p class="m-3 ">
+                        <ul class="notifcation-p">
+                            <li>
+                                <% if(notifications[i].message.includes("Deleted")){ %>
+                                    <a href="#" style="text-decoration: none;">
+                                        <%=notifications[i].message%>
+                                            <% if(notifications[i].time){ %>
+                                                at <%=notifications[i].time %>
+                                                    <% } %>
+                                
+                                    </a>
+                                    <% }else{ %>
+                                        <a href="/posts/<%=notifications[i].postId%>" style="text-decoration: none;">
+                                            <%=notifications[i].message%>
+                                                <% if(notifications[i].time){ %>
+                                                    at <%=notifications[i].time %>
+                                                        <% } %>
+                                
+                                        </a>
+                                        <% } %>
+                                <form action="/notification/<%=notifications[i]._id%>?_method=DELETE" method="post">
+    
+                                    <button class="btn btn-danger"> <i class="fa fa-trash"></i></button>
+    
+                                </form>
+                            </li>
+                        </ul>
+    
+                        </p>
+                        <% } %>
+                            <% } %>
+                                
+</div>

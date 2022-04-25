@@ -1,0 +1,63 @@
+<% layout('boilerplate/boilerplatein') %>
+  <div class="container form-contain">
+    <h2>Create New Post</h2>
+    <form action="/posts" method="POST" class="needs-validation" novalidate>
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Post Title</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Title of Your Post" required
+          name="posts[title]" />
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+        <div class="invalid-feedback">
+          Please give a title.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Write Your Post Here</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="posts[content]" required
+          placeholder="Write your Content Here"></textarea>
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+        <div class="invalid-feedback">
+          Your post cannot be empty.
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput2" class="form-label">Post Image</label>
+          <input type="text" class="form-control" id="exampleFormControlInput2" placeholder="Link Of Image" required
+            name="posts[image]" />
+          <div class="valid-feedback">
+            Alright!
+          </div>
+          <div class="invalid-feedback">
+
+            Please provide an image.
+          </div>
+        </div>
+      </div>
+      <p>Use tags for better filter and reaching more audience</p>
+      <% if(loggedinUser.isAdmin){ %>
+      <div class="d-flex mb-2 justify-content-between"   style="width: 60%;">
+        
+          <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" name="posts[tag]" value="announcement"  />
+          <label class="btn btn-outline-primary" for="btn-check-outlined">Announcment</label><br />
+          <% }else{ %> 
+            <div class="d-flex mb-2 justify-content-between" style="width: 40%;">
+        <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" name="posts[tag]" style="margin-left: 10px"
+          value="funny" />
+        <label class="btn btn-outline-success" for="btn-check-outlined">Funny</label><br />
+        <input type="checkbox" class="btn-check" id="btn-check-outlined2" autocomplete="off" style="margin-left: 10px"
+          name="posts[tag]" value="help" />
+          
+        <label class="btn btn-outline-warning" for="btn-check-outlined3">Help</label><br />
+        <input type="checkbox" class="btn-check" id="btn-check-outlined3" autocomplete="off" style="margin-left: 10px"
+          name="posts[tag]" value="newstudent" />
+        <label class="btn btn-outline-primary" for="btn-check-outlined3">New Student</label><br />
+        <% } %> 
+      </div>
+      <p>NOTE: Posting anything offensive and hateful might get you in trouble <br> as we have all your credentials</p>
+      <button class="btn btn-success">Post</button>
+      <a href="#" onclick="history.back()" class="btn btn-danger btn-cancel">Cancel</a>
+    </form>
+  </div>

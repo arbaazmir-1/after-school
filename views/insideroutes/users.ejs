@@ -1,0 +1,67 @@
+<% layout('boilerplate/boilerplatein') %>
+<link rel="stylesheet" href="/css/users.css">
+<h2 style="text-align: center; background-color: white; padding: 10px;">Users</h2>
+<div class="user-cont">
+    
+    <div class="search-cont">
+        <h4>Search by Email</h4>
+        <div >
+            <form action="" class="d-flex">
+        <input class="m-2" type="email" name="email" id="" placeholder="Enter User Email" required>
+        <button type="submit" class="btn btn-outline-primary m-2">Search</button>
+        <a href="/admin/users" class="btn btn-success m-2">View All</a>
+        </form>
+        
+        </div>
+    </div>
+    
+    <table class="table">
+         <tr>
+             <th>Full Name</th>
+             <th>Student ID</th>
+             <th>Email</th>
+             
+             <th>Action</th>
+         </tr>
+    <% if(users.length==0){ %>
+        <p>No User Found</p>
+        <% }%>
+          <% for(let i=0;i<users.length;i++){ %> 
+        <tr>
+            
+            <td>
+                <a href="/profile/<%=users[i]._id%>" class="userlink">
+               <%=users[i].name  %> 
+            </a>
+
+            </td>
+
+            <td>
+                <%=users[i].username %>
+            </td>
+            <td>
+                <%=users[i].email %>
+            </td>
+            
+            <td>
+                <form action="/users/<%=users[i]._id%>?_method=DELETE" method="post">
+                    <button class="btn btn-outline-danger">Delete Account</button>
+                </form>
+                
+            </td>
+
+        </tr>
+        
+        <% } %> 
+        
+
+
+
+
+        
+    </table>
+
+
+
+
+</div>

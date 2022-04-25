@@ -1,0 +1,73 @@
+<% layout('boilerplate/boilerplatein') %>
+  <div class="container form-contain">
+    <h2>Edit Post</h2>
+    <form action="/posts/<%=post._id%>?_method=PUT" method="POST" class="needs-validation" novalidate>
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Post Title</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Your Post Title here"
+          required name="posts[title]" value="<%=post.title%>" />
+      </div>
+      <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Write Your Post Here</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" required
+          name="posts[content]"><%=post.content  %>  </textarea>
+        <div class="mb-3">
+          <label for="exampleFormControlInput2" class="form-label">Post Image</label>
+          <input type="text" class="form-control" id="exampleFormControlInput2" value="<%=post.image%> " required
+            name="posts[image]" /> 
+        </div>
+      </div>
+
+      
+        
+      
+         
+           
+      <div class="d-flex mb-2 justify-content-between" style="width: 40%;">
+        <% if(loggedinUser.isAdmin){ %>
+        <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" name="posts[tag]"
+          value="announcement" />
+        <label class="btn btn-outline-primary" for="btn-check-outlined">Announcment</label><br />
+        <% }else{ %>
+        <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" name="posts[tag]"
+          value="funny" />
+        <label class="btn btn-outline-success" for="btn-check-outlined">Funny</label><br />
+        <input type="checkbox" class="btn-check" id="btn-check-outlined2" autocomplete="off" style="margin-left: 10px"
+          name="posts[tag]" value="help" />
+        <label class="btn btn-outline-warning" for="btn-check-outlined2">Help</label><br />
+        <input type="checkbox" class="btn-check m-1" id="btn-check-outlined3" autocomplete="off"
+          style="margin-left: 10px" name="posts[tag]" value="newstudent" />
+        <label class="btn btn-outline-primary" for="btn-check-outlined3">New Student</label><br />
+        <% } %> 
+      </div>
+
+
+
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Save Changes
+      </button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Save Changes</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Are you sure you want to edit this post?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+      <a href="#" onclick="history.back()" class="btn btn-danger btn-cancel">Cancel</a>
+    </form>
+  </div>

@@ -1,0 +1,13 @@
+body{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.main-body-cont{
+    width: 100%;
+    
+    
+}
+body > nav{
+    width: 18%;
+}

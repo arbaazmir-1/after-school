@@ -1,0 +1,19 @@
+.mainContProfile {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 10px;
+}
+.post-cont-user {
+  width: 50%;
+}
+.notifications {
+  width: 25%;
+  background-color: white;
+  block-size: fit-content;
+  position: sticky;
+  top: 80px;
+}
+.notifcation-p > li > a {
+  text-decoration: none;
+}

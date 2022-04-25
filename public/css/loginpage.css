@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Dongle&family=Noto+Serif:wght@700&family=Nunito:wght@600&display=swap');
+body {
+  margin: 0;
+}
+.container-login {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 0;
+  width: 100%;
+}
+.imagecont {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.imagecont > img {
+  width: 100%;
+  margin-right: 20%;
+}
+.error-alert{
+  background-color: #e63946;
+  border-radius: 10px;
+  color: white;
+  padding: 10px;
+}
+.formcont {
+  width: 100%;
+  height: 100vh;
+  background-image: linear-gradient(180deg, #4079C6, #85EFFF);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.cont-login {
+  margin: 0;
+}
+.img-logo {
+  width: 200px;
+  margin-bottom: 60px;
+}
+.form {
+  background-color: white;
+  width: 70%;
+  height: 70vh;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form > h1 {
+  font-family: 'Dongle', sans-serif;
+  color: #bc00de;
+  font-size: 50px;
+  margin-bottom: 5px;
+}
+
+.form-act {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+}
+.form-act > li {
+  display: flex;
+  flex-direction: column;
+}
+.form-act > li > label {
+  font-family: 'Dongle';
+  font-size: 20px;
+}
+.form-act > button,
+.btn {
+  margin-top: 10px;
+  width: 70%;
+  align-self: center;
+  background-color:  #8B85FF;
+  border: 0;
+  padding: 15px;
+  border-radius: 20px;
+  color: white;
+  transition: all 0.2s;
+  text-decoration: none;
+  text-align: center;
+  font-family: 'Nunito';
+}
+.form-act > li > input {
+  border-radius: 20px;
+  width: 300px;
+  padding: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0px 1px 2px grey;
+  border: none;
+}
+.form-act > li > input:focus {
+  outline: none;
+}
+.form-act > p {
+  align-self: center;
+  font-family: 'Nunito';
+  font-size: 12px;
+}
+
+#createBtn {
+  background-color: #4079C6;
+  transition: all 0.2s;
+}
+.btn:hover {
+
+  color: white;
+  box-shadow: 0px 1px 10px grey;
+  
+  cursor: pointer;
+  transform: translateY(-3px);
+}

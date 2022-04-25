@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="css/loginpage.css" />
+  </head>
+  <body>
+    <div class="container-login">
+      <div class="imagecont cont-login">
+        <img src="assests/image1.png" alt="" />
+      </div>
+      <div class="formcont cont-login">
+        <a href="/">  <img class="img-logo" src="assests/logo.png" alt="" /></a>
+        <div class="form">
+          <h1>Login</h1>
+          <% if(success && success.length){ %>
+            <div class="alert success-alert" role="alert">
+              <%=success%>
+          
+            </div>
+            <% } %>
+          
+              <% if(error && error.length){ %>
+                <div class="alert error-alert" role="alert">
+                  <%=error%>
+          
+                </div>
+                <% } %>
+
+          <form action="/user/login" method="POST" >
+            <ul class="form-act">
+              <li>
+                <label for="email">StudentID</label>
+                <input
+                  type="text"
+                  placeholder="Enter Your Username"
+                  name="username"
+                  required
+                />
+              </li>
+              <li>
+                <label for="password">Password</label>
+                <input
+                  type="password"
+                  placeholder="Enter Your Password"
+                  name="password"
+                  required
+                />
+              </li>
+              
+              <button class="btn">Login</button>
+            
+          </form>
+          <p>Don't have an account?</p>
+          <a href="/signup" id="createBtn" class="btn">Create an Account</a>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

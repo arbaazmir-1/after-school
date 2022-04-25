@@ -1,0 +1,62 @@
+<nav class="navbar navbar-expand-lg sticky-top navbar-light" style="background-color: white;">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/home"><img src="/assests/logo2.png" alt="" /></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        
+        <% if(loggedinUser.isAdmin){ %> 
+        <li class="nav-item">
+          <a href="/admin/report" style="color: #2F79CC" class="nav-link ">Reported Post</a>
+        </li>
+        <li class="nav-item">
+          <a href="/admin/users" style="color: #2F79CC" class="nav-link ">Users</a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link " style="color:#2F79CC " href="/profile/<%=loggedinUser._id  %> ">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a href="/createpost" style="color: #2F79CC" class="nav-link ">Create Announcement</a>
+        </li>
+        <% }else { %> 
+
+
+          <li class="nav-item">
+            <a class="nav-link " style="color: #2F79CC" href="/home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " style="color:#2F79CC " href="/profile/<%=loggedinUser._id  %> ">Profile</a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link " style="color:#2F79CC " href="/settings">Settings</a>
+          </li>
+          <li class="nav-item">
+            <a href="/createpost" style="color: #2F79CC" class="nav-link ">Create New Post</a>
+          </li>
+
+
+          <% } %> 
+      </ul>
+      <% if(!loggedinUser.isAdmin){ %> 
+      <p style="color: #2F79CC;" class="m-2">Welcome <%=loggedinUser.name  %> </p> 
+      <% }else{ %> 
+        <p style="color: #2F79CC;" class="m-2">Welcome Admin </p> 
+        <% } %> 
+      <form class="d-flex" action="/home" method="GET">
+
+        <input class="form-control me-2" type="search" placeholder="Search Posts" aria-label="Search" name="search" />
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+      <form action="/logout" method="GET">
+      
+      <button class="btn btn-danger" style="margin-left: 5px">Logout</button>
+      </form>
+
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,110 @@
+<% layout('boilerplate/boilerplatein') %>
+<link rel="stylesheet" href="/css/users.css">
+<h2 style="text-align: center; background-color: white; padding: 10px;">Manage Admin</h2>
+<div class="user-cont">
+
+<div class="search-cont">
+    <h4>Search by Email</h4>
+    <div>
+        <form action="" class="d-flex">
+            <input class="m-2" type="email" name="email" id="" placeholder="Enter User Email" required>
+            <button type="submit" class="btn btn-outline-primary m-2">Search</button>
+            <a href="/admin/users" class="btn btn-success m-2">View All</a>
+            <button type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                data-bs-whatever="@mdo">Create New Admin</button>
+
+        </form>
+        
+        
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Create New Admin</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/admin/newadmin" method="post">
+                                <div class="mb-3">
+                                    <label for="full-name" class="col-form-label">Full Name:</label>
+                                    <input type="text" class="form-control" id="full-name" name="name">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="email" class="col-form-label">Email:</label>
+                                    <input type="email" class="form-control" name="email" id="email">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="username" class="col-form-label">StudentID:</label>
+                                    <input type="text" class="form-control" name="username" id="username">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="Password" class="col-form-label">Password:</label>
+                                    <input type="password" class="form-control" name="password" id="Password">
+                                </div>
+                                
+                                <input type="checkbox" class="btn-check" id="btn-check-outlined3" autocomplete="off" style="margin-left: 10px"
+                                    name="isAdmin" value="true" checked />
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Add User</button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+
+
+
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>Full Name</th>
+        <th>Student ID</th>
+        <th>Email</th>
+        
+        <th>Action</th>
+    </tr>
+   
+        <% for(let i=0;i<admins.length;i++){ %> 
+            
+                <tr>
+
+                    <td>
+                     
+                       <%=admins[i].name  %> 
+                    </td>
+
+                    <td>
+                    <%=admins[i].username %>
+                    </td>
+                    <td>
+                    <%=admins[i].email %>
+                    </td>
+                    
+                    <td>
+                        <form action="/users/<%=admins[i]._id%>?_method=DELETE" method="post">
+                            <button class="btn btn-outline-danger">Delete Account</button>
+                        </form>
+
+                    </td>
+
+                </tr>
+
+                <% } %> 
+
+
+
+
+
+
+</table>
+
+
+
+
+</div>
