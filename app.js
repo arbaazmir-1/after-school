@@ -826,6 +826,7 @@ app.use((err, req, res, next) => {
 
 })
 // starting up the server to port 3000 to run the app
-app.listen(4005, () => {
-    console.log("Server Running!! on 4005")
+const port = process.env.PORT || 4005
+app.listen(port, () => {
+    console.log("Server Running!! on ",port)
 })
