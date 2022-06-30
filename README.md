@@ -24,12 +24,4 @@
 
 > You can sign up as normal user and browse the site
 
-> The Project will be running but you will have to add an admin to your database first to use the admin panel. To do so go to your terminal and run these following commands:
 
-> mongo
-
-> use after-school
-
-> db.users.insertOne({name:"admin",isAdmin:true,email:"admin@admin.newinti.edu.my",password:"admin",studentId:"admin"})
-
-### After this you can sign in using the admin.
